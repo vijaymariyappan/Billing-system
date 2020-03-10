@@ -1,0 +1,40 @@
+.addfield
+{
+    background-color:rgb(76, 179, 76);
+}
+
+.removefield
+{
+    background-color:rgb(218, 66, 66);
+}
+
+.tot
+{
+   
+    width:150px;
+    margin-left:82px;
+        
+}
+
+.tat{
+    width:150px;
+    margin-left:88px;
+
+}
+
+.grand
+{
+    text-align:right;
+    padding:10px 0px;
+}
+
+.amount
+{
+    margin:20px 20px;
+    
+}
+
+.allvalue strong
+{
+    padding-left:100px;
+}

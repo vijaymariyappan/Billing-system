@@ -1,0 +1,100 @@
+<html>
+   <head>
+      <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+      <link rel="stylesheet" href="inventory.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+         $(document).ready(function(){
+         
+             var wrapper=$(".inputfields");
+             var addbutton=$(".addfield");
+             
+             
+             $(addbutton).click(function(){
+                
+                 $(wrapper).append('<div class="container"> <div class="row"> <input type="text" name="name[]" placeholder="Enter the name" class="col-md-4 name"/> <input type="number" name="value[]" placeholder="$" class="col-md-2 value"> <input type="number" name="qty[]" placeholder="Quantity" class="col-md-1 qty"> <input type="number" name="total[]" placeholder="$" class="col-md-2 total"> <input type="number" name="tax[]" placeholder="%" class="col-md-2 tax"> <button class="removefield col-md-1">--</button></div></div>');
+             });
+         
+             $(wrapper).on("click",".removefield",function(){
+                  $(this).parent('div').remove(); 
+             });
+                 
+             $(wrapper).on("keyup",".qty",function(){
+               var alltotal=[];
+               var alltaxes=[];
+               var amount=[];
+
+                $('input[name="name[]"]').each(function(i,v){
+                   
+                   alltotal[i]=parseFloat($($('input[name="value[]"]')[i]).val()) * parseFloat($($('input[name="qty[]"]')[i]).val());
+                   
+                   $($('input[name="total[]"]')[i]).val(alltotal[i]);
+                   $('.tot').val(alltotal.reduce((a,b) => a + b, 0));
+
+                   alltaxes[i]=(alltotal[i] * 10/100);
+                   //console.log(alltaxes[i]);
+                   
+                   $($('input[name="tax[]"]')[i]).val(alltaxes[i]);
+
+                   $('.tat').val(alltaxes.reduce((a,b) => a + b, 0));
+
+                   amount[i]=(alltotal.reduce((a,b) => a + b, 0)) + (alltaxes.reduce((a,b) => a + b, 0));
+
+                   //console.log(amount);
+
+                   $('.amount').val(amount[i]);
+
+
+                });
+                
+                 
+              });
+                 
+         });
+         
+         
+      </script>
+   </head>
+   <body>
+      <div class="inputfields">
+         <div class="container">
+            <div class="row">
+               <div class="heading">
+                  <h5 class="col-md-4"><strong>Inventory Name</strong></h5>
+                  <h5 class="col-md-2"><strong>Value</strong></h5>
+                  <h5 class="col-md-1"><strong>Quantity</strong></h5>
+                  <h5 class="col-md-2"><strong>Total</strong></h5>
+                  <h5 class="col-md-2"><strong>Tax</strong></h5>
+                  <h5 class="col-md-1"></h5>
+               </div>
+            </div>
+         </div>
+         <div class="container">
+            <div class="row">
+               <div class="textbox"><input type="text" name="name[]" placeholder="Enter the name" class="col-md-4 name">
+                  <input type="number" name="value[]" placeholder="$" class="col-md-2 value" >
+                  <input type="number" name="qty[]" placeholder="Quantity" class="col-md-1 qty">
+                  <input type="text" name="total[]" placeholder="$" class="col-md-2 total" readonly="">
+                  <input type="text" name="tax[]" placeholder="$" class="col-md-2 tax" readonly="">
+                  <button class="addfield col-md-1">+</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="container">
+         <div class="row">
+      <div class="col-md-6 grand">
+         <strong>Total</strong>
+      </div>
+      <div class="col-md-6 totbox">
+         <input type="text" name="total[]" placeholder="$" class="tot" readonly="" >
+         <input type="text" name="grandtax[]"  placeholder="%"  class="tat" readonly="">
+      </div>
+      <div class="allvalue">
+         <strong class="line">grand Amount</strong><input type="text" name="grandamount[]" class="amount" readonly="">
+      </div>
+   </div>
+</div>
+   </body>
+</html>
